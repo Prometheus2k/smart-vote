@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./auth/Authcontext";
 
-import WelcomePage from "./components/Welcomepage";
-import Login from "./components/Login.js";
-import Signup from "./components/Signup.js";
-import AdminLogin from "./components/Adminlogin.js";
+import WelcomePage from "./pages/Welcomepage";
+import Login from "./pages/Login.js";
+import Signup from "./pages/Signup.js";
+import AdminLogin from "./pages/Adminlogin.js";
 
 import "./App.css";
 
