@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AdminSidebar from "../components/AdminSidebar";
 import AddCandidate from "../components/AddCandidate";
 import Phases from "../components/Phases";
-// import Phases from './Phases';
-// import CandidatesList from './CandidatesList';
+import CandidatesList from "../components/CandidatesList";
 // import VoterList from './VoterList';
 
 const AdminDashboard = () => {
@@ -14,7 +13,7 @@ const AdminDashboard = () => {
       <Routes>
         <Route exact path="/" element={<AddCandidate />} />
         <Route path="/phases" element={<Phases />} />
-        {/* <Route path="/candidates-list" element={<CandidatesList />} /> */}
+        <Route path="/candidates-list" element={<CandidatesList />} />
         {/* <Route path="/register-voter" element={<VoterList />} />  */}
       </Routes>
     </div>

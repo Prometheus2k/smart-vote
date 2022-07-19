@@ -6,19 +6,19 @@ import db from "../auth/Firebase";
 const AddCandidate = () => {
   const [name, setName] = useState();
   const [party, setParty] = useState();
-  const [qual, setQual] = useState();
-  const [number, setNumber] = useState();
+  const [dept, setDept] = useState();
+  const [tcrId, setNumber] = useState();
   const [wallet, setWallet] = useState();
   const [photo, setPhoto] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await setDoc(doc(db, "candidates", number), {
+      await setDoc(doc(db, "candidates", tcrId), {
         name: name,
         party: party,
-        qualification: qual,
-        number: number,
+        department: dept,
+        regNumber: tcrId,
         walletAddr: wallet,
         photo: photo,
         votes: 0,
@@ -68,17 +68,17 @@ const AddCandidate = () => {
             <div className="addCandidateFormField">
               <label
                 className="addCandidateFormFieldLabel"
-                htmlFor="qualification"
+                htmlFor="department"
               >
-                Qualification
+                Department
               </label>
               <input
                 type="text"
-                id="qual"
+                id="dept"
                 className="addCandidateFormFieldInput"
-                placeholder="Enter candidate's qualifications"
-                value={qual}
-                onChange={(e) => setQual(e.target.value)}
+                placeholder="Enter candidate's department"
+                value={dept}
+                onChange={(e) => setDept(e.target.value)}
               />
             </div>
 
@@ -88,10 +88,10 @@ const AddCandidate = () => {
               </label>
               <input
                 type="text"
-                id="number"
+                id="tcrid"
                 className="addCandidateFormFieldInput"
                 placeholder="Enter candidate's number"
-                value={number}
+                value={tcrId}
                 onChange={(e) => setNumber(e.target.value)}
               />
             </div>
