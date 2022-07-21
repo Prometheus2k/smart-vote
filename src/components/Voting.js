@@ -124,7 +124,7 @@ const Voting = () => {
                 party={d.party}
                 image={d.photo}
                 regNumber={d.regNumber}
-                dept={d.dept}
+                dept={d.department}
                 votes={d.votes}
                 wallet={d.walletAddr}
                 status={status}

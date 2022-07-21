@@ -1,0 +1,53 @@
+
+.ResultTable {
+    background: #12130f;
+    /* margin: 1em ; */
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    width:  -webkit-fill-available;
+    
+}
+.ResultTable h1 {
+    color: rgb(141, 217, 252);
+    text-transform: uppercase;
+    text-align: center;
+}
+.ResultListHeader,
+.ResultsListRow {
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid;
+    border-color: #6b5b95;
+}
+
+.ResultListHeader div,
+.ResultsListRow div {
+    flex: 1;
+    padding: 0.1rem 0.3em;
+    border: 1px solid #12130f;
+}
+
+.ResultListHeader {
+    background-color: #6b5b95;
+    color: white;
+}
+
+.ResultsListRow img {
+    height: 200px;
+    width: 200px;
+    color: white;
+}
+
+
+.ResultsListRow .photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  margin: 10px;
+  object-fit: cover;
+  object-position: center right;
+}

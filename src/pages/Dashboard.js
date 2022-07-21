@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "../components/Sidebar.js";
 import Registration from "../components/Registration.js";
 import Voting from "../components/Voting";
-// import Results from "./Results";
+import Results from "../components/Results";
 
 export default function Dashboard() {
   return (
@@ -12,6 +12,7 @@ export default function Dashboard() {
       <Routes>
         <Route path="/" element={<Registration />} />
         <Route path="/voting" element={<Voting />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </div>
   );
