@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/Authcontext";
 import "../styles/Adminlogin.css";
 
-const AdminLogin = () => {
+const AdminLogin = ({ smartVote, account, loadWeb3 }) => {
   const navigate = useNavigate();
 
   const { signIn } = useAuth();
@@ -14,20 +14,35 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.log(admin);
-
-    if (admin === "admin@gmail.com") {
-      await signIn(admin, password);
-      navigate("/admin-dashboard/");
-      console.log("Admin Login successful");
-    } else {
-      alert("Not an Admin!");
-      navigate("/admin-login");
-    }
+    // console.log(props.loadWeb3);
+    await loadWeb3();
   };
+
+  useEffect(() => {
+    async function login() {
+      if (smartVote) {
+        console.log(smartVote);
+        console.log(account);
+
+        // console.log(admin);
+
+        if (admin === "admin@gmail.com") {
+          await signIn(admin, password);
+          navigate("/admin-dashboard/");
+          console.log("Admin Login successful");
+        } else {
+          alert("Not an Admin!");
+          navigate("/admin-login");
+        }
+      }
+    }
+
+    login();
+  }, [smartVote, account]);
 
   return (
     <div className="AdminLogin" id="AdminLogin">
+      {console.log(smartVote, account)}
       <div className="adminLoginAside" />
       <div className="adminLoginForm">
         <div className="adminLoginFormCenter">

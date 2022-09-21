@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import db from "../auth/Firebase";
+// import db from "../auth/Firebase";
 import "../styles/CandidateList.css";
 //look here
 // function maskInfo(text) {
@@ -24,28 +24,44 @@ const CandidateListRow = ({ name, party, dept, tcrId, photo }) => {
   );
 };
 
-export default function CandidatesList() {
+const CandidatesList = ({ smartVote, account }) => {
+  console.log(account);
+  console.log(smartVote);
   const [candid, setCandid] = useState([]);
+  // const getCandidates = async (e) => {
+  //   var querySnapshot = await getDocs(collection(db, "candidates"));
+
+  //   var temp = [];
+
+  //   querySnapshot.forEach((d) => {
+  //     // console.log(d.data());
+  //     temp.push(d.data());
+  //   });
+  //   console.log(temp);
+  //   setCandid(temp);
+
+  //   console.log(candid);
+  // };
+
+  // useEffect(() => {
+  //   getCandidates();
+  // }, []);
 
   const getCandidates = async (e) => {
-    var querySnapshot = await getDocs(collection(db, "candidates"));
+    console.log("getcandidate called");
+    console.log(account);
+    console.log(smartVote);
 
-    var temp = [];
-
-    querySnapshot.forEach((d) => {
-      // console.log(d.data());
-      temp.push(d.data());
-    });
-    console.log(temp);
-    setCandid(temp);
-
-    console.log(candid);
+    const candidateList = await smartVote.methods.getCandidateList().call();
+    console.log(candidateList);
+    setCandid(candidateList);
+    // console.log(candid);
+    // console.log(typeof candidateList);
   };
 
   useEffect(() => {
     getCandidates();
   }, []);
-
   return (
     <div className="CandidateListTable">
       <h1> Candidate's List </h1>
@@ -62,11 +78,13 @@ export default function CandidatesList() {
             name={d.name}
             party={d.party}
             dept={d.department}
-            tcrId={d.regNumber}
-            photo={d.photo}
+            tcrId={d.tcrid}
+            photo={d.imageurl}
           />
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default CandidatesList;

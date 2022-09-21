@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import "../styles/AddCandidate.css";
-import { setDoc, doc } from "firebase/firestore";
-import db from "../auth/Firebase";
+// import { setDoc, doc } from "firebase/firestore";
+// import db from "../auth/Firebase";
 
-const AddCandidate = () => {
+const AddCandidate = ({ smartVote, account }) => {
   const [name, setName] = useState();
   const [party, setParty] = useState();
   const [dept, setDept] = useState();
   const [tcrId, setNumber] = useState();
-  const [wallet, setWallet] = useState();
+  // const [wallet, setWallet] = useState();
   const [photo, setPhoto] = useState();
 
+  var candidate = [];
   const handleSubmit = async (e) => {
+    console.log("handle called");
+    console.log(account);
     e.preventDefault();
-    try {
-      await setDoc(doc(db, "candidates", tcrId), {
-        name: name,
-        party: party,
-        department: dept,
-        regNumber: tcrId,
-        walletAddr: wallet,
-        photo: photo,
-        votes: 0,
+    // const aCandidate = await smartVote.methods.candidates(1).call();
+    // console.log(aCandidate);
+    const candidateCount = await smartVote.methods.candidatesCount().call();
+    console.log(candidateCount);
+
+    // for (var i = 0; i < candidateCount; i++) {
+    //   const aCase = await smartVote.methods.candidates(i).call();
+    //   candidate.push(aCase);
+    // }
+    // console.log(candidate);
+    smartVote.methods
+      .addCandidate(tcrId, name, party, dept, photo)
+      .send({ from: account })
+      .on("transactionHash", (hash) => {
+        window.alert("Successfully registered");
+        console.log(candidateCount);
       });
-      alert("Candidate Added Successfully");
-      // console.log("Candidate Added Successfully");
-    } catch (e) {
-      alert("Error : ", e);
-      console.log("Error adding document: ", e);
-    }
+    // const candidateCount = await smartVote.methods.candidatesCount().call();
   };
 
   return (
@@ -96,7 +101,7 @@ const AddCandidate = () => {
               />
             </div>
 
-            <div className="addCandidateFormField">
+            {/* <div className="addCandidateFormField">
               <label className="addCandidateFormFieldLabel" htmlFor="wallet">
                 Candidate Wallet Address
               </label>
@@ -108,7 +113,7 @@ const AddCandidate = () => {
                 value={wallet}
                 onChange={(e) => setWallet(e.target.value)}
               />
-            </div>
+            </div> */}
 
             <div className="addCandidateFormField">
               <label className="addCandidateFormFieldLabel" htmlFor="imageUrl">
