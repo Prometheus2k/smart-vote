@@ -25,7 +25,6 @@ const CandidateListRow = ({
   const vote = async () => {
     if (status === "voted") alert("Already Voted!");
     else {
-      // Update Firebase
       console.log("Voted!");
       const candRef = doc(db, "candidates", regNumber);
       await updateDoc(doc(db, "candidates", regNumber), {

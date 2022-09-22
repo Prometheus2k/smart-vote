@@ -5,12 +5,16 @@ import Registration from "../components/Registration.js";
 import Voting from "../components/Voting";
 import Results from "../components/Results";
 
-export default function Dashboard() {
+export default function Dashboard({ smartVote, account }) {
+  console.log(smartVote, account);
   return (
     <div className="dashboard" style={{ display: "flex" }}>
       <Sidebar />
       <Routes>
-        <Route path="/" element={<Registration />} />
+        <Route
+          path="/"
+          element={<Registration smartVote={smartVote} account={account} />}
+        />
         <Route path="/voting" element={<Voting />} />
         <Route path="/results" element={<Results />} />
       </Routes>

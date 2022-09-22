@@ -45,6 +45,108 @@
     "inputs": [
       {
         "internalType": "string",
+        "name": "walletAddr",
+        "type": "string"
+      }
+    ],
+    "name": "Register",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "voterAddr",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "tcrid",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "department",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "walletAddr",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "registration",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Vote.Voter",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "walletAddr",
+        "type": "string"
+      }
+    ],
+    "name": "Unregister",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "voterAddr",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "tcrid",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "department",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "walletAddr",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "registration",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Vote.Voter",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
         "name": "tcrid",
         "type": "string"
       },
@@ -72,6 +174,58 @@
     "name": "addCandidate",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "tcrid",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "dept",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "walletAddr",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "registration",
+        "type": "string"
+      }
+    ],
+    "name": "addVoter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "walletAddr",
+        "type": "string"
+      }
+    ],
+    "name": "approvedStatus",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -237,6 +391,102 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "walletAddr",
+        "type": "string"
+      }
+    ],
+    "name": "getVoter",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "voterAddr",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "tcrid",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "department",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "walletAddr",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "registration",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Vote.Voter",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getVoterList",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "voterAddr",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "tcrid",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "department",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "walletAddr",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "registration",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Vote.Voter[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -283,19 +533,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "vote",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "",
         "type": "uint256"
       }
@@ -306,6 +543,31 @@
         "internalType": "address",
         "name": "voterAddr",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "tcrid",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "department",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "walletAddr",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "registration",
+        "type": "string"
       }
     ],
     "stateMutability": "view",

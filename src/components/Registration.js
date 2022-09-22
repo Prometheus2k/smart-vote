@@ -4,67 +4,117 @@ import { updateDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import db from "../auth/Firebase";
 import "../styles/Registration.css";
 
-const Registration = () => {
+const Registration = ({ smartVote, account }) => {
   const [phase, setPhase] = useState();
+  const [tcrId, setRegNumber] = useState();
   const [name, setName] = useState();
-  const [regNumber, setRegNumber] = useState();
-  const [wallet, setWallet] = useState();
-  const [approved, setApproved] = useState(false);
-
+  const [dept, setDept] = useState();
+  const [walletAddr, setWalletaddr] = useState();
+  const [approved, setApprovedStatus] = useState("unregistered");
+  console.log(smartVote);
+  console.log(account);
   const { currentUser } = useAuth();
 
   const [val1, setVal1] = useState("");
   const [val2, setVal2] = useState("");
 
-  const getPhase = async () => {
-    const phaseStatus = await getDoc(doc(db, "phase", "current-phase"));
+  // const getPhase = async () => {
+  //   const phaseStatus = await getDoc(doc(db, "phase", "current-phase"));
 
-    setPhase(phaseStatus.data().phase);
+  //   setPhase(phaseStatus.data().phase);
+  // };
+
+  const getPhase = async (e) => {
+    console.log("getPhase called");
+    // console.log(account);
+    // console.log(smartVote);
+
+    const currentPhase = await smartVote.methods.getPhase().call();
+    console.log(currentPhase);
+    setPhase(currentPhase);
   };
+
+  useEffect(() => {
+    getPhase();
+  }, []);
+
+  // const setValues = async () => {
+  //   setVal1("");
+  //   setVal2("");
+  //   const docSnap = await getDoc(doc(db, "voters", currentUser.email));
+
+  //   if (docSnap.exists()) {
+  //     const t = docSnap.data();
+  //     setRegNumber(t.regNumber);
+  //     setWalletaddr(t.walletAddr);
+  //   } else console.log("No document exists");
+  // };
 
   const setValues = async () => {
+    console.log("setvalues called");
     setVal1("");
     setVal2("");
-    const docSnap = await getDoc(doc(db, "voters", currentUser.email));
-
-    if (docSnap.exists()) {
-      const t = docSnap.data();
-      setRegNumber(t.regNumber);
-      setWallet(t.walletAddr);
-    } else console.log("No document exists");
+    const voter = await smartVote.methods.getVoter(account).call();
+    console.log(voter);
+    // console.log(voter.registration);
+    setApprovedStatus(voter.registration);
+    setRegNumber(voter.tcrid);
+    setDept(voter.department);
+    setWalletaddr(voter.walletAddr);
+    // console.log(approved);
   };
+
+  useEffect(() => {
+    setValues();
+  }, []);
 
   const addVoter = async (e) => {
     e.preventDefault();
 
     console.log(`Voter Added ${currentUser.displayName}`);
 
-    console.log(val1, val2);
-
-    await setDoc(doc(db, "voters", currentUser.email), {
-      name: currentUser.displayName,
-      email: currentUser.email,
-      regNumber: val1,
-      walletAddr: val2,
-      registration: "unregistered",
-    });
-    console.log("Document written!");
+    // await setDoc(doc(db, "voters", currentUser.email), {
+    //   name: currentUser.displayName,
+    //   email: currentUser.email,
+    //   regNumber: val1,
+    //   walletAddr: val2,
+    //   registration: "unregistered",
+    // });
+    setWalletaddr(account);
+    smartVote.methods
+      .addVoter(val1, name, val2, walletAddr, approved)
+      .send({ from: account })
+      .on("transactionHash", (hash) => {
+        window.alert("Successfully registered Voter");
+      });
+    console.log(name, val1, val2, walletAddr, approved);
+    setRegNumber(val1);
+    setDept(val2);
+    // console.log(tcrId, dept);
     setValues();
   };
 
   const approvedStatus = async () => {
     // Fetch approved Status from Firebase
-    const appr = await getDoc(doc(db, "voters", currentUser.email));
+    // const appr = await getDoc(doc(db, "voters", currentUser.email));
 
-    if (appr.data().registration === "registered") setApproved(true);
-    console.log(approved);
+    // if (appr.data().registration === "registered") setRegistration(true);
+    // console.log(registration);
+    console.log("approvedStatus called");
+    const regStatus = await smartVote.methods.approvedStatus(account).call();
+    // console.log(regStatus);
+    if (regStatus === "registered") setApprovedStatus("registered");
+    else setApprovedStatus("unregistered");
+
+    console.log("approved called");
+    // console.log(regStatus);
+    // console.log(approved);
   };
 
   useEffect(() => {
-    getPhase();
     approvedStatus();
     setName(currentUser.displayName);
-    setValues();
+    // setValues();
   }, []);
 
   function maskInfo(text) {
@@ -88,6 +138,7 @@ const Registration = () => {
                   htmlFor="regNumber"
                 >
                   Enter your Registration Number
+                  {/* {console.log(tcrId, dept)} */}
                 </label>
                 <input
                   type="text"
@@ -104,13 +155,13 @@ const Registration = () => {
                   className="registrationFormFieldLabel"
                   htmlFor="metamask"
                 >
-                  Enter your MetaMask Wallet Address
+                  Enter your Department
                 </label>
                 <input
                   type="password"
                   id="metamask"
                   className="registrationFormFieldInput"
-                  placeholder="Enter your Metamask Wallet Address"
+                  placeholder="Enter your Department"
                   value={val2}
                   onChange={(e) => setVal2(e.target.value)}
                 />
@@ -135,13 +186,16 @@ const Registration = () => {
                 <th>Name</th>
                 <th>Registration Number</th>
                 <th>Wallet Address</th>
+                <th>Department</th>
                 <th>Registration Status</th>
               </tr>
               <tr>
                 <td>{name}</td>
-                <td>{regNumber}</td>
-                <td>{maskInfo(wallet)}</td>
-                {approved ? (
+                <td>{tcrId}</td>
+                <td>{dept}</td>
+                <td>{maskInfo(walletAddr)}</td>
+                {/* {console.log(approvedStatus)} */}
+                {approved === "registered" ? (
                   <td>
                     <button className="reg-btn">Registered</button>
                   </td>

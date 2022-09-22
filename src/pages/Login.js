@@ -3,7 +3,7 @@ import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/Authcontext";
 import "../styles/Login.css";
 
-const Login = () => {
+const Login = ({ smartVote, account }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState();
@@ -14,21 +14,15 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    if (email === "admin@gmail.com") {
+    try {
+      setError("");
+      setLoading(true);
       await signIn(email, password);
-      navigate("/admin-dashboard/");
-      console.log("Admin Login successful");
-    } else {
-      try {
-        setError("");
-        setLoading(true);
-        await signIn(email, password);
-        navigate("/dashboard/");
-        console.log("Login successful", currentUser);
-      } catch {
-        setError("Login Failed");
-      }
+      navigate("/dashboard/");
+      console.log("Login successful", currentUser);
+      // console.log(smartVote, account);
+    } catch {
+      setError("Login Failed");
     }
   };
 

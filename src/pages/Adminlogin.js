@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/Authcontext";
 import "../styles/Adminlogin.css";
 
-const AdminLogin = ({ smartVote, account, loadWeb3 }) => {
+const AdminLogin = ({ smartVote, account }) => {
   const navigate = useNavigate();
 
   const { signIn } = useAuth();
@@ -14,35 +14,26 @@ const AdminLogin = ({ smartVote, account, loadWeb3 }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // console.log(props.loadWeb3);
-    await loadWeb3();
-  };
-
-  useEffect(() => {
-    async function login() {
-      if (smartVote) {
-        console.log(smartVote);
-        console.log(account);
-
-        // console.log(admin);
-
-        if (admin === "admin@gmail.com") {
-          await signIn(admin, password);
-          navigate("/admin-dashboard/");
-          console.log("Admin Login successful");
-        } else {
-          alert("Not an Admin!");
-          navigate("/admin-login");
-        }
+    if (smartVote) {
+      console.log(account);
+      console.log(typeof account);
+      if (
+        admin === "admin@gmail.com" &&
+        account === "0x7ffC260ef58905e9a8F462a4C9b838c21352FF90"
+      ) {
+        await signIn(admin, password);
+        navigate("/admin-dashboard/");
+        console.log("Admin Login successful");
+      } else {
+        alert("Not an Admin!");
+        navigate("/admin-login");
       }
     }
-
-    login();
-  }, [smartVote, account]);
+  };
 
   return (
     <div className="AdminLogin" id="AdminLogin">
-      {console.log(smartVote, account)}
+      {/* {console.log(smartVote, account)} */}
       <div className="adminLoginAside" />
       <div className="adminLoginForm">
         <div className="adminLoginFormCenter">

@@ -26,7 +26,10 @@ const AdminDashboard = ({ smartVote, account }) => {
           path="/candidates-list"
           element={<CandidatesList smartVote={smartVote} account={account} />}
         />
-        <Route path="/register-voter" element={<VoterList />} />
+        <Route
+          path="/register-voter"
+          element={<VoterList smartVote={smartVote} account={account} />}
+        />
       </Routes>
     </div>
   );

@@ -8,49 +8,47 @@
     width: -webkit-fill-available;
 } */
 .CandidateListTable h1 {
-    color: rgb(141, 217, 252);
-    text-transform: uppercase;
-    text-align: center;
+  color: rgb(141, 217, 252);
+  text-transform: uppercase;
+  text-align: center;
 }
 .CandidateListTable {
-    background: #12130f;
-    /* margin: 1em ; */
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    width:  -webkit-fill-available;
-    
+  background: #12130f;
+  /* margin: 1em ; */
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
 }
 
 .CandidateListHeader,
 .CandidateListRow {
-    display: flex;
-    color: white;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border: 1px solid;
-    border-color: #6b5b95;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid;
+  border-color: #6b5b95;
 }
 
 .CandidateListHeader div,
 .CandidateListRow div {
-    flex: 1;
-    padding: 0.1rem 0.3em;
-    border: 1px solid #12130f;
+  flex: 1;
+  padding: 0.1rem 0.3em;
+  border: 1px solid #12130f;
 }
 
 .CandidateListHeader {
-    background-color: #6b5b95;
-    color: white;
+  background-color: #6b5b95;
+  color: white;
 }
 
 .CandidateListBody img {
-    height: 200px;
-    width: 200px;
-    color: white;
+  height: 200px;
+  width: 200px;
+  color: white;
 }
-
 
 .CandidateListRow .photo {
   width: 100px;
@@ -60,4 +58,3 @@
   object-fit: cover;
   object-position: center right;
 }
-

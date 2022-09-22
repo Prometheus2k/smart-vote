@@ -5,7 +5,7 @@ import "../styles/WelcomePage.css";
 const WelcomePage = () => {
   return (
     <div className="welcome-page">
-      <h1>Smart Vote</h1>
+      <h1>NxtVote</h1>
       <h3>Secure Voting Application</h3>
       <Link to="/login">
         <button>Voter Login</button>

@@ -15,15 +15,11 @@ import Web3 from "web3";
 import "./App.css";
 
 class App extends Component {
-  // async componentWillMount() {
-  //   await this.loadWeb3();
-  //   await this.loadBlockchainData();
-  // }
-
-  async connectwithMetamask() {
+  async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
   }
+
   async loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
@@ -44,7 +40,7 @@ class App extends Component {
 
     this.setState({ account: accounts[0] });
 
-    const networkAdress = "0xaf1c0b08999580BF03EdCC1080DD02E1132fD70D";
+    const networkAdress = "0x907F08c928DbcFF69D7471FEe634F1bf737329A2";
     console.log("HHHH");
     if (networkAdress) {
       console.log("Hello");
@@ -55,8 +51,6 @@ class App extends Component {
 
       const candidateCount = await smartVote.methods.candidatesCount().call();
       console.log(candidateCount);
-
-      // to be completed
     } else {
       window.alert("SmartVote contract not deployed to detected network.");
     }
@@ -75,15 +69,30 @@ class App extends Component {
         <div className="App">
           <Routes>
             <Route exact path="/" element={<WelcomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard/*" element={<Dashboard />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  smartVote={this.state.smartVote}
+                  account={this.state.account}
+                />
+              }
+            />
+            <Route
+              path="/dashboard/*"
+              element={
+                <Dashboard
+                  smartVote={this.state.smartVote}
+                  account={this.state.account}
+                />
+              }
+            />
             <Route path="/signup" element={<Signup />} />
             <Route
               exact
               path="/admin-login"
               element={
                 <AdminLogin
-                  loadWeb3={async () => this.connectwithMetamask()}
                   smartVote={this.state.smartVote}
                   account={this.state.account}
                 />
